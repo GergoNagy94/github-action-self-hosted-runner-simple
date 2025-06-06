@@ -30,3 +30,6 @@ In the case of a different usage:
 - OpenTofu: Version compatible with terraform-aws-modules/vpc/aws@v5.15.0 and terraform-aws-modules/ec2-instance/aws@v5.8.0.
 - GitHub PAT: Personal Access Token with repo scope.
 - GitHub Repository: A repository to register the runner and host the workflow.
+
+Spot pricing history:
+aws ec2 describe-spot-price-history --instance-types t3.medium --region eu-central-1

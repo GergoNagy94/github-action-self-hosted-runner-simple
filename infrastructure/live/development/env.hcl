@@ -34,7 +34,7 @@ locals {
   })
   create_spot_instance                = true
   spot_price                          = "0.08"
-  spot_type                           = "presistent"
+  spot_type                           = "persistent"
   spot_wait_for_fulfillment           = true
   spot_instance_interruption_behavior = "terminate"
 

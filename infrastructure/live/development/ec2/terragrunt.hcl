@@ -38,7 +38,6 @@ inputs = {
   vpc_security_group_ids              = [dependency.iam.outputs.security_group_id]
   iam_instance_profile                = dependency.iam.outputs.instance_profile_name
   user_data                           = include.env.locals.user_data
-  runner_spot_instance                = include.env.locals.runner_spot_instance
   create_spot_instance                = include.env.locals.create_spot_instance
   spot_price                          = include.env.locals.spot_price
   spot_type                           = include.env.locals.spot_type
