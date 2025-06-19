@@ -6,7 +6,8 @@ locals {
   env        = "development"
 
   github_token = local.global_vars.locals.github_token
-  repo_url     = local.global_vars.locals.repo_url
+  github_repo  = local.global_vars.locals.github_repo
+  github_owner = local.global_vars.locals.github_owner
 
   skip_module = {
     iam = false
