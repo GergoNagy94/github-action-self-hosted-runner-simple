@@ -29,7 +29,7 @@ locals {
   runner_name = "github-runner"
   runner_ami  = "ami-092ff8e60e2d51e19"
   runner_type = "t3.medium"
-  user_data_base64 = templatefile(find_in_parent_folders("scripts/user_data.sh"), {
+  user_data = templatefile(find_in_parent_folders("scripts/user_data.sh"), {
     github_token = local.github_token
     github_repo  = local.github_repo
     github_owner = local.github_owner

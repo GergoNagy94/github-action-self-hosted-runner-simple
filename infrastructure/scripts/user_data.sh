@@ -2,18 +2,15 @@
 
 yum update -y
 
-yum install -y git curl jq docker
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
 
-systemctl start docker
-systemctl enable docker
-
-useradd -m github-runner
-usermod -aG docker github-runner
-
-cd /home/github-runner
-
-RUNNER_VERSION="2.311.0"
+RUNNER_VERSION="2.325.0"
+sudo mkdir actions-runner && cd actions-runner
 curl -o actions-runner-linux-x64-$RUNNER_VERSION.tar.gz -L https://github.com/actions/runner/releases/download/v$RUNNER_VERSION/actions-runner-linux-x64-$RUNNER_VERSION.tar.gz
+
+sudo dnf install -y libicu
+sudo dnf install -y dotnet-sdk-6.0
 
 tar xzf ./actions-runner-linux-x64-$RUNNER_VERSION.tar.gz
 
@@ -52,7 +49,3 @@ unzip awscliv2.zip
 rm -rf aws awscliv2.zip
 
 sudo -u github-runner bash -c "cd /home/github-runner && ./register_runner.sh"
-
-yum install -y python3 python3-pip nodejs npm
-
-echo "GitHub Runner setup completed at $(date)" >> /var/log/github-runner-setup.log
