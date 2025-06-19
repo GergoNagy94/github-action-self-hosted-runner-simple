@@ -1,5 +1,5 @@
 terraform {
-  source = "tfr:///terraform-aws-modules/ec2-instance/aws//.?version=5.8.0"
+  source = "${get_terragrunt_dir()}/../../../../modules/ec2"
 }
 
 include "root" {
