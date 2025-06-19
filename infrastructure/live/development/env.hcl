@@ -27,7 +27,7 @@ locals {
 
   # GitHub Runner
   runner_name = "github-runner"
-  runner_ami  = "ami-08aa372c213609089"
+  runner_ami  = "ami-092ff8e60e2d51e19"
   runner_type = "t3.medium"
   user_data_base64 = templatefile(find_in_parent_folders("scripts/user_data.sh"), {
     github_token = local.github_token
