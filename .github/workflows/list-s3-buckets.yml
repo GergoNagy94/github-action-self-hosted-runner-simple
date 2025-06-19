@@ -2,7 +2,7 @@ name: List S3 Buckets
 on:
   push:
     branches:
-      - main
+      - ci-test
 jobs:
   list-buckets:
     runs-on: [self-hosted, aws-runner]
