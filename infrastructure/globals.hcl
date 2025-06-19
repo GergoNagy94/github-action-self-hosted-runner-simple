@@ -3,7 +3,8 @@ locals {
   region  = "eu-central-1"
 
   github_token = get_env("GITHUB_TOKEN", "")
-  repo_url     = "https://github.com/GergoNagy94/github-action-self-hosted-runner-simple.git"
+  github_repo  = "https://github.com/GergoNagy94/github-action-self-hosted-runner-simple.git"
+  github_owner = "GergoNagy94"
 
   organization_id      = "a-acbdef1234"
   organization_root_id = "a-ab12"
