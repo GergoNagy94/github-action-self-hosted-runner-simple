@@ -33,7 +33,7 @@ locals {
     github_token = local.github_token
     github_repo  = local.github_repo
     github_owner = local.github_owner
-    runner_name  = "github-runner-gergo"
+    runner_name  = local.runner_name
   })
   create_spot_instance                = true
   spot_price                          = "0.08"
