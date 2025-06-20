@@ -8,7 +8,6 @@ locals {
   github_token  = local.global_vars.locals.github_token
   github_repo   = local.global_vars.locals.github_repo
   github_owner  = local.global_vars.locals.github_owner
-  runner_name   = local.global_vars.locals.runner_name
   runner_labels = local.global_vars.locals.runner_labels
 
   skip_module = {
@@ -28,7 +27,7 @@ locals {
   availability_zone          = ["eu-central-1a", "eu-central-1b"]
 
   # GitHub Runner
-  runner_name = "github-runner"
+  runner_name = "test-runner-${local.env}-${local.project}"
   runner_ami  = "ami-092ff8e60e2d51e19"
   runner_type = "t3.medium"
   user_data = templatefile(find_in_parent_folders("scripts/user_data.sh"), {
@@ -36,7 +35,7 @@ locals {
     github_repo   = local.github_repo
     github_owner  = local.github_owner
     runner_name   = local.runner_name
-    runner_labels = local.runner_name
+    runner_labels = local.runner_labels
   })
   create_spot_instance                = true
   spot_price                          = "0.08"
