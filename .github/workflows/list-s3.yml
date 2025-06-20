@@ -1,0 +1,16 @@
+
+name: List S3 Buckets
+on:
+  push:
+    branches:
+      - main
+jobs:
+  list-buckets:
+    runs-on: [self-hosted, aws-runner]
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: eu-central-1
+      - name: List S3 Buckets
+        run: aws s3 ls
