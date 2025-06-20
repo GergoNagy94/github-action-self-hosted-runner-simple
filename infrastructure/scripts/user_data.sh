@@ -1,28 +1,32 @@
 #!/bin/bash
 
-yum update -y
+sudo yum update -y
 
 sudo systemctl enable amazon-ssm-agent
 sudo systemctl start amazon-ssm-agent
 
+sudo yum install -y libicu jq unzip
+
+sudo su - ec2-user
+sudo mkdir -p /home/ec2-user/actions-runner
+cd /home/ec2-user/actions-runner || exit 1
+
 RUNNER_VERSION="2.325.0"
-sudo mkdir actions-runner && cd actions-runner
-curl -o actions-runner-linux-x64-$RUNNER_VERSION.tar.gz -L https://github.com/actions/runner/releases/download/v$RUNNER_VERSION/actions-runner-linux-x64-$RUNNER_VERSION.tar.gz
+sudo curl -o actions-runner-linux-x64-$RUNNER_VERSION.tar.gz -L https://github.com/actions/runner/releases/download/v$RUNNER_VERSION/actions-runner-linux-x64-$RUNNER_VERSION.tar.gz
+sudo tar xzf actions-runner-linux-x64-$RUNNER_VERSION.tar.gz
 
-sudo dnf install -y libicu
-sudo dnf install -y dotnet-sdk-6.0
+sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo unzip awscliv2.zip
+sudo ./aws/install
+sudo rm -rf aws awscliv2.zip
 
-tar xzf ./actions-runner-linux-x64-$RUNNER_VERSION.tar.gz
+sudo chown -R ec2-user:ec2-user /home/ec2-user/actions-runner
 
-chown -R github-runner:github-runner /home/github-runner
-
-cat > /home/github-runner/register_runner.sh << 'EOF'
-#!/bin/bash
-
-GITHUB_TOKEN="${github_token}"
-GITHUB_OWNER="${github_owner}"
-GITHUB_REPO="${github_repo}"
-RUNNER_NAME="${runner_name}"
+sudo tee register_runner.sh >/dev/null <<'EOF'
+sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo unzip awscliv2.zip
+sudo ./aws/install
+sudo rm -rf aws awscliv2.zip
 
 REGISTRATION_TOKEN=$(curl -s -X POST \
   -H "Authorization: token $GITHUB_TOKEN" \
@@ -36,16 +40,11 @@ REGISTRATION_TOKEN=$(curl -s -X POST \
   --unattended \
   --replace
 
-sudo ./svc.sh install github-runner
+sudo ./svc.sh install ec2-user
 sudo ./svc.sh start
 EOF
 
-chmod +x /home/github-runner/register_runner.sh
-chown github-runner:github-runner /home/github-runner/register_runner.sh
+sudo chmod +x register_runner.sh
 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-./aws/install
-rm -rf aws awscliv2.zip
+./register_runner.sh
 
-sudo -u github-runner bash -c "cd /home/github-runner && ./register_runner.sh"
