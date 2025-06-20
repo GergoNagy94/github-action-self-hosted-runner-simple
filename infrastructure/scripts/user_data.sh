@@ -37,6 +37,7 @@ REGISTRATION_TOKEN=$(curl -s -X POST \
 ./config.sh --url "https://github.com/$GITHUB_OWNER/$GITHUB_REPO" \
   --token "$REGISTRATION_TOKEN" \
   --name "$RUNNER_NAME" \
+  --labels ${runner_labels} \
   --work "_work" \
   --unattended \
   --replace

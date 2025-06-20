@@ -5,9 +5,11 @@ locals {
   account_id = local.global_vars.locals.development_account_id
   env        = "development"
 
-  github_token = local.global_vars.locals.github_token
-  github_repo  = local.global_vars.locals.github_repo
-  github_owner = local.global_vars.locals.github_owner
+  github_token  = local.global_vars.locals.github_token
+  github_repo   = local.global_vars.locals.github_repo
+  github_owner  = local.global_vars.locals.github_owner
+  runner_name   = local.global_vars.locals.runner_name
+  runner_labels = local.global_vars.locals.runner_labels
 
   skip_module = {
     iam = false
@@ -30,10 +32,11 @@ locals {
   runner_ami  = "ami-092ff8e60e2d51e19"
   runner_type = "t3.medium"
   user_data = templatefile(find_in_parent_folders("scripts/user_data.sh"), {
-    github_token = local.github_token
-    github_repo  = local.github_repo
-    github_owner = local.github_owner
-    runner_name  = local.runner_name
+    github_token  = local.github_token
+    github_repo   = local.github_repo
+    github_owner  = local.github_owner
+    runner_name   = local.runner_name
+    runner_labels = local.runner_name
   })
   create_spot_instance                = true
   spot_price                          = "0.08"
