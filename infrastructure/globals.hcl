@@ -2,7 +2,7 @@ locals {
   project = "gergo-runner-demio-1"
   region  = "eu-central-1"
 
-  github_token = get_env("GITHUB_TOKEN", "")
+  github_token = get_env("GITHUB_PAT", "")
   github_repo  = "https://github.com/GergoNagy94/github-action-self-hosted-runner-simple.git"
   github_owner = "GergoNagy94"
 
