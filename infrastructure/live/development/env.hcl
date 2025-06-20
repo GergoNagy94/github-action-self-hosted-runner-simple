@@ -6,7 +6,8 @@ locals {
   env        = "development"
 
   github_token = local.global_vars.locals.github_token
-  repo_url     = local.global_vars.locals.repo_url
+  github_repo  = local.global_vars.locals.github_repo
+  github_owner = local.global_vars.locals.github_owner
 
   skip_module = {
     iam = false
@@ -26,11 +27,13 @@ locals {
 
   # GitHub Runner
   runner_name = "github-runner"
-  runner_ami  = "ami-08aa372c213609089"
+  runner_ami  = "ami-092ff8e60e2d51e19"
   runner_type = "t3.medium"
   user_data = templatefile(find_in_parent_folders("scripts/user_data.sh"), {
     github_token = local.github_token
-    repo_url     = local.repo_url
+    github_repo  = local.github_repo
+    github_owner = local.github_owner
+    runner_name  = "github-runner-gergo"
   })
   create_spot_instance                = true
   spot_price                          = "0.08"
