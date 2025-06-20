@@ -23,10 +23,11 @@ sudo rm -rf aws awscliv2.zip
 sudo chown -R ec2-user:ec2-user /home/ec2-user/actions-runner
 
 sudo tee register_runner.sh >/dev/null <<'EOF'
-sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-sudo unzip awscliv2.zip
-sudo ./aws/install
-sudo rm -rf aws awscliv2.zip
+#!/bin/bash
+GITHUB_TOKEN=${github_token}
+GITHUB_OWNER=${github_owner}
+GITHUB_REPO=${github_repo}
+RUNNER_NAME=${runner_name}
 
 REGISTRATION_TOKEN=$(curl -s -X POST \
   -H "Authorization: token $GITHUB_TOKEN" \
